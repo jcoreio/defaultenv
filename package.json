@@ -2,6 +2,9 @@
   "name": "defaultenv",
   "version": "0.0.0-development",
   "description": "set missing environment variables to defaults then run a command",
+  "bin": {
+    "defaultenv": "lib/index.js"
+  },
   "main": "lib/index.js",
   "scripts": {
     "lint": "eslint lib test",
@@ -20,7 +23,7 @@
     "semantic-release": "semantic-release pre && npm publish && semantic-release post"
   },
   "config": {
-    "mocha": "./test/**/*.js",
+    "mocha": "./test/index.js",
     "commitizen": {
       "path": "cz-conventional-changelog"
     }
@@ -57,9 +60,16 @@
     "husky": "^0.13.3",
     "istanbul": "^0.4.5",
     "mocha": "^3.2.0",
-    "nyc": "^10.2.0",
+    "nyc": "^11.0.2",
     "rimraf": "^2.6.1",
     "semantic-release": "^6.3.6",
     "validate-commit-msg": "^2.11.2"
+  },
+  "dependencies": {
+    "dotenv": "^4.0.0",
+    "lodash.defaults": "^4.2.0"
+  },
+  "optionalDependencies": {
+    "kexec": "^3.0.0"
   }
 }

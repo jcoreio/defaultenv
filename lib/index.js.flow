@@ -1,3 +1,5 @@
 // @flow
 
-declare module.exports: {};
+declare function defaultEnv(envFiles: Array<string>): void;
+declare module.exports: typeof defaultEnv;
+
