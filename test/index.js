@@ -22,7 +22,6 @@ describe('defaultenv', function () {
       cwd: root,
       env: {},
     }, function (error, stdout) {
-      if (error) console.error(error.stack)
       expect(error).not.to.exist
       expect(stdout.trim()).to.equal('foo')
       done()
