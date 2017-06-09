@@ -1,0 +1,2 @@
+exports.FOO = 'foo'
+

@@ -38,6 +38,71 @@ describe('defaultenv', function () {
       done()
     })
   })
+  it('works for single js file', function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js test/foo.js ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout) {
+      expect(error).not.to.exist
+      expect(stdout.trim()).to.equal('foo')
+      done()
+    })
+  })
+  it('works for multiple js files', function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js test/foo.js test/bar.js -- ' +
+      process.argv[0] + " -p 'process.env.FOOBAR'"
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout) {
+      expect(error).not.to.exist
+      expect(stdout.trim()).to.equal('foobar')
+      done()
+    })
+  })
+  it('requires js env files to export an object', function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js test/notObject.js ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout, stderr) {
+      expect(error.code).to.equal(1)
+      expect(stderr).to.match(/test\/notObject.js is invalid;/)
+      done()
+    })
+  })
+  it('requires all values exported from js env files to be strings', function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js test/notStringValue.js ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout, stderr) {
+      expect(error.code).to.equal(1)
+      expect(stderr).to.match(/test\/notStringValue.js is invalid;/)
+      done()
+    })
+  })
+  it('works for single json file', function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js test/foo.json ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout) {
+      expect(error).not.to.exist
+      expect(stdout.trim()).to.equal('foo')
+      done()
+    })
+  })
   it('works for multiple env files', function (done) {
     var command = process.argv[0] + ' ' +
       'lib/index.js test/foo.env test/bar.env -- ' +

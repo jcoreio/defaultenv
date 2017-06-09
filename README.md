@@ -9,13 +9,15 @@ Takes the suck out of launching your server with various sets of environment var
 
 ## Table of Contents
 
-- [defaultenv](#defaultenv)
-  * [Intro](#intro)
-  * [Usage](#usage)
-    + [Single file](#single-file)
-    + [Multiple files](#multiple-files)
-    + [Notes](#notes)
-    + [Example](#example)
+* [Intro](#intro)
+* [Usage](#usage)
+  + [`dotenv`-style files](#dotenv-style-files)
+  + [`.js` files](#js-files)
+  + [`.json` files](#json-files)
+  + [Single file](#single-file)
+  + [Multiple files](#multiple-files)
+  + [Notes](#notes)
+  + [Example](#example)
 
 ## Intro
 
@@ -32,16 +34,23 @@ This is a start, but it's pretty lackluster:
 * it doesn't work on windows (and may not work in terminals besides `bash`...I have no idea)
 * it would be nice avoid wrapping `dev.env` in `$(<` `| xargs)`
 * if you want to source multiple files, you have to type even more punctuation
+* you can't dynamically construct any values with code
 
 `defaultenv` makes this easy:
 
 ```sh
 defaultenv dev.env runserver
+defaultenv devenv.js runserver
 defaultenv prod.env staging.env -- runserver
 defaultenv prod.env deployment.env -- runserver
 ```
 
+You can use either `dotenv`-style files, `.js` modules that export an object, or `.json` files to provide environment
+variable defaults.
+
 ## Usage
+
+### `dotenv`-style files
 
 `defaultenv` uses [`dotenv`](https://www.npmjs.com/package/dotenv) to parse each file.  Here's an example of what
 an env file should look like:
@@ -51,6 +60,46 @@ REDIS_PORT=6379
 DB_HOST=localhost
 DB_USER=root
 DYNAMO_ENDPOINT="http://localhost:8000"
+```
+
+### `.js` files
+
+You may use a node `.js` script that exports an object where all property values are strings.  This is especially useful
+if you need to dynamically create default values for environment variables with arbitrary code.
+You are welcome to refer to `process.env` in the script; default values from prior files will already be applied.
+
+```js
+var path = require('path')
+exports.BUILD_DIR = path.resolve(__dirname, '..', 'build')
+exports.REDIS_HOST = 'localhost'
+exports.REDIS_PORT = '6379'
+if (process.env.TARGET) {
+  exports.BUILD_DIR = path.resolve(exports.BUILD_DIR, process.env.TARGET)
+}
+```
+(or)
+```js
+module.exports = {
+  BUILD_DIR: path.resolve(__dirname, '..', 'build'),
+  REDIS_HOST: 'localhost',
+  REDIS_PORT: '6379',
+}
+if (process.env.TARGET) {
+  module.exports.BUILD_DIR = path.resolve(module.exports.BUILD_DIR, process.env.TARGET)
+}
+```
+
+### `.json` files
+
+You may use a JSON file that contains an object where all property values are strings:
+```json
+{
+  "REDIS_HOST": "localhost",
+  "REDIS_PORT": "6379",
+  "DB_HOST": "localhost",
+  "DB_USER": "root",
+  "DYNAMO_ENDPOINT": "http://localhost:8000"
+}
 ```
 
 ### Single file

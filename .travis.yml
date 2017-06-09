@@ -1,5 +1,6 @@
 language: node_js
 cache:
+  yarn: true
   directories:
     - node_modules
 notifications:
@@ -8,8 +9,8 @@ node_js:
   - '7'
   - '6'
   - '4'
-before_script:
-  - npm prune
+install:
+  - yarn install --ignore-optional
 script:
   - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
 after_success:
