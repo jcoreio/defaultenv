@@ -14,6 +14,17 @@ describe('defaultenv', function () {
     expect(process.env.FOO).to.equal('foo')
     delete process.env.FOO
   })
+  it('prints usage and exits with no args', function (done) {
+    var command = process.argv[0] + ' lib/index.js'
+    exec(command, {
+      cwd: root,
+      env: {},
+    }, function (error, stdout) {
+      expect(error).not.to.exist
+      expect(stdout).to.match(/Usage:/)
+      done()
+    })
+  })
   it('works for single env file', function (done) {
     var command = process.argv[0] + ' ' +
       'lib/index.js test/foo.env ' +
