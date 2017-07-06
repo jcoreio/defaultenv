@@ -167,12 +167,12 @@ describe('defaultenv', function () {
     })
   })
   it("outputs export script with -p option", function (done) {
-    var command = process.argv[0] + ' lib/index.js -p test/foo.env'
+    var command = process.argv[0] + ' lib/index.js -p test/foo.env test/bar.js'
     exec(command, {
       cwd: root,
       env: {FOO: 'bar'},
     }, function (error, stdout) {
-      expect(stdout.trim()).to.equal('export FOO=foo')
+      expect(stdout.trim()).to.equal('export FOO=foo\nexport BAR=bar\nexport FOOBAR=foobar')
       done()
     })
   })
