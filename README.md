@@ -149,6 +149,9 @@ Overwrite existing values for environment variables (by default, existing values
 #### `-p`, `--print`
 See [Exporting Values](#exporting-values)
 
+#### `--dotenv`
+also loads variables from a .env file in the root directory of your project
+
 ### Example
 
 `foo.env`:
