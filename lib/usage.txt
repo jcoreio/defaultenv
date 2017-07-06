@@ -9,3 +9,6 @@ OPTIONS
   -f, --force             overwrite existing values for environment variables
                           (by default, existing values will be preserved)
 
+  --dotenv                also loads variables from a .env file in the root directory
+                          of your project
+

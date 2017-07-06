@@ -176,5 +176,16 @@ describe('defaultenv', function () {
       done()
     })
   })
+  it("loads .env when --dotenv option is given", function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js --dotenv test/foo.env ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+    }, function (error, stdout) {
+      expect(stdout.trim()).to.equal('gloob')
+      done()
+    })
+  })
 })
 
