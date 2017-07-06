@@ -21,7 +21,6 @@ describe('defaultenv', function () {
       env: {},
     }, function (error, stdout) {
       expect(error).not.to.exist
-      expect(stdout).to.match(/Usage:/)
       done()
     })
   })
@@ -129,6 +128,19 @@ describe('defaultenv', function () {
       done()
     })
   })
+  it("clobbers existing environment variables with -f option", function (done) {
+    var command = process.argv[0] + ' ' +
+      'lib/index.js -f test/foo.env ' +
+      process.argv[0] + " -p 'process.env.FOO'"
+    exec(command, {
+      cwd: root,
+      env: {FOO: 'bar'},
+    }, function (error, stdout) {
+      expect(error).not.to.exist
+      expect(stdout.trim()).to.equal('foo')
+      done()
+    })
+  })
   it('mimics signal from spawned process', function (done) {
     var command = process.argv[0] + ' ' +
       'lib/index.js test/foo.env ' +
@@ -151,6 +163,16 @@ describe('defaultenv', function () {
       env: {FOO: 'bar'},
     }, function (error) {
       expect(error.code).to.equal(1)
+      done()
+    })
+  })
+  it("outputs export script with -p option", function (done) {
+    var command = process.argv[0] + ' lib/index.js -p test/foo.env'
+    exec(command, {
+      cwd: root,
+      env: {FOO: 'bar'},
+    }, function (error, stdout) {
+      expect(stdout.trim()).to.equal('export FOO=foo')
       done()
     })
   })

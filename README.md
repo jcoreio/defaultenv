@@ -17,6 +17,8 @@ Takes the suck out of launching your server with various sets of environment var
   + [Single file](#single-file)
   + [Multiple files](#multiple-files)
   + [Notes](#notes)
+  + [Exporting Values](#exporting-values)
+  + [Options](#options)
   + [Example](#example)
 
 ## Intro
@@ -123,6 +125,29 @@ environment variables.  This means that:
 * if `FOO` appears in more than one of the env files, the leftmost file in your arguments wins
 * if `FOO` is already defined in the environment `defaultenv` gets run with, `defaultenv` won't overwrite it
 * once an environment variable gets set to the empty string, `defaultenv` won't overwrite it
+
+### Exporting values
+
+Use the `-p` or `--print` option to output a bash script that will export values from the files:
+```
+> defaultenv -p foo.env
+export FOO=foo
+```
+
+Combine this with `eval` to export the values:
+```
+> eval $(defaultenv -p foo.env)
+> echo $FOO
+foo
+```
+
+### Options
+
+#### `-f`, `--force`
+Overwrite existing values for environment variables (by default, existing values will be preserved)
+
+#### `-p`, `--print`
+See [Exporting Values](#exporting-values)
 
 ### Example
 

@@ -1,0 +1,11 @@
+To run a command with environment variables from envfiles:
+  defaultenv <envfile> <command> [...command args]
+  defaultenv <envfile1> <envfile2> [...more env files] -- <command> [...command args]
+
+To output a script that will export values from envfiles:
+  defaultenv -p <envfile> [...more env files]
+
+OPTIONS
+  -f, --force             overwrite existing values for environment variables
+                          (by default, existing values will be preserved)
+
