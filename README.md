@@ -128,15 +128,19 @@ environment variables.  This means that:
 
 ### Exporting values
 
-Use the `-p` or `--print` option to output a bash script that will export values from the files:
+Sometimes it's more convenient to just export a bunch of variables to your terminal session so you can run a bunch of
+commands with those variables instead of running each command via `defaultenv`.
+
+The `-p` or `--print` option will make `defaultenv` output a bash script that will export the values it loaded from
+the envfiles:
 ```
 > defaultenv -p foo.env
 export FOO=foo
 ```
 
-Combine this with `eval` to export the values:
+So if you wrap this in `$( )` it will export them to your terminal session:
 ```
-> eval $(defaultenv -p foo.env)
+> $(defaultenv -p foo.env)
 > echo $FOO
 foo
 ```
@@ -145,12 +149,13 @@ foo
 
 #### `-f`, `--force`
 Overwrite existing values for environment variables (by default, existing values will be preserved)
+**This does not currently apply to variables loaded via `--dotenv` option.**
 
 #### `-p`, `--print`
 See [Exporting Values](#exporting-values)
 
 #### `--dotenv`
-also loads variables from a .env file in the root directory of your project
+also loads variables from a .env file in the root directory of your project (by using `require('dotenv').config()`)
 
 ### Example
 
