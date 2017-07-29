@@ -8,11 +8,17 @@ var root = path.resolve(__dirname, '..')
 
 describe('defaultenv', function () {
   this.timeout(5000)
-  it('exports defaultEnv function', function () {
-    expect(process.env.FOO).not.to.exist
-    defaultEnv([path.resolve(__dirname, 'foo.env')])
-    expect(process.env.FOO).to.equal('foo')
-    delete process.env.FOO
+  describe('node.js API', function () {
+    it('puts vars on process.env unless noExport is true', function () {
+      expect(process.env.FOO).not.to.exist
+      defaultEnv([path.resolve(__dirname, 'foo.env')])
+      expect(process.env.FOO).to.equal('foo')
+      delete process.env.FOO
+
+      var vars = defaultEnv([path.resolve(__dirname, 'bar.env')], {noExport: true})
+      expect(process.env.BAR).not.to.exist
+      expect(vars.BAR).to.equal('bar')
+    })
   })
   it('prints usage and exits with no args', function (done) {
     var command = process.argv[0] + ' lib/index.js'

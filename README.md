@@ -20,6 +20,7 @@ Takes the suck out of launching your server with various sets of environment var
   + [Exporting Values](#exporting-values)
   + [Options](#options)
   + [Example](#example)
+  + [Node.js API](#node-js-api)
 
 ## Intro
 
@@ -182,4 +183,38 @@ test
 > defaultenv foo.env bar.env -- node -p 'process.env.FOO + process.env.BAR'
 foobar
 ```
+
+### Node.js API
+
+```js
+declare function defaultEnv(files: Array<string>, options: {
+  force?: boolean,
+  print?: boolean,
+  dotenv?: boolean,
+  noExport?: boolean,
+})
+```
+
+```js
+var path = require('path')
+var defaultEnv = require('defaultEnv')
+
+var defaults = defaultEnv([path.resolve('foo.js')], {noExport: true})
+```
+
+#### Options
+
+#### `force`
+If true, overwrite existing values for environment variables (by default, existing values will be preserved)
+**This does not currently apply to variables loaded via `--dotenv` option.**
+
+#### `print`
+See [Exporting Values](#exporting-values)
+
+#### `dotenv`
+If true, also loads variables from a .env file in the root directory of your project
+(by using `require('dotenv').config()`)
+
+##### `noExport`
+If true, doesn't write to `process.env`; only returns the values that would be written.
 

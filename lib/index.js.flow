@@ -1,5 +1,12 @@
 // @flow
 
-declare function defaultEnv(envFiles: Array<string>): void;
+export type Options = {
+  force?: boolean,
+  dotenv?: boolean,
+  print?: boolean,
+  noExport?: boolean,
+}
+
+declare function defaultEnv(envFiles: Array<string>, options: Options): {[varname: string]: string};
 declare module.exports: typeof defaultEnv;
 
