@@ -11,11 +11,11 @@ describe('defaultenv', function () {
   describe('node.js API', function () {
     it('puts vars on process.env unless noExport is true', function () {
       expect(process.env.FOO).not.to.exist
-      defaultEnv([path.resolve(__dirname, 'foo.env')])
+      defaultEnv([path.resolve(__dirname, 'foo.env')], {noDotenv: true})
       expect(process.env.FOO).to.equal('foo')
       delete process.env.FOO
 
-      var vars = defaultEnv([path.resolve(__dirname, 'bar.env')], {noExport: true})
+      var vars = defaultEnv([path.resolve(__dirname, 'bar.env')], {noDotenv: true, noExport: true})
       expect(process.env.BAR).not.to.exist
       expect(vars.BAR).to.equal('bar')
     })
@@ -32,7 +32,7 @@ describe('defaultenv', function () {
   })
   it('works for single env file', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.env ' +
+      'lib/index.js --no-dotenv test/foo.env ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -45,7 +45,7 @@ describe('defaultenv', function () {
   })
   it('works for single js file', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.js ' +
+      'lib/index.js --no-dotenv test/foo.js ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -58,7 +58,7 @@ describe('defaultenv', function () {
   })
   it('works for multiple js files', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.js test/bar.js -- ' +
+      'lib/index.js --no-dotenv test/foo.js test/bar.js -- ' +
       process.argv[0] + " -p 'process.env.FOOBAR'"
     exec(command, {
       cwd: root,
@@ -71,7 +71,7 @@ describe('defaultenv', function () {
   })
   it('requires js env files to export an object', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/notObject.js ' +
+      'lib/index.js --no-dotenv test/notObject.js ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -84,7 +84,7 @@ describe('defaultenv', function () {
   })
   it('requires all values exported from js env files to be strings', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/notStringValue.js ' +
+      'lib/index.js --no-dotenv test/notStringValue.js ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -97,7 +97,7 @@ describe('defaultenv', function () {
   })
   it('works for single json file', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.json ' +
+      'lib/index.js --no-dotenv test/foo.json ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -110,7 +110,7 @@ describe('defaultenv', function () {
   })
   it('works for multiple env files', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.env test/bar.env -- ' +
+      'lib/index.js --no-dotenv test/foo.env test/bar.env -- ' +
       process.argv[0] + " -p 'process.env.FOO + process.env.BAR'"
     exec(command, {
       cwd: root,
@@ -136,7 +136,7 @@ describe('defaultenv', function () {
   })
   it("clobbers existing environment variables with -f option", function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js -f test/foo.env ' +
+      'lib/index.js --no-dotenv -f test/foo.env ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,
@@ -149,7 +149,7 @@ describe('defaultenv', function () {
   })
   it('mimics signal from spawned process', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.env ' +
+      'lib/index.js --no-dotenv test/foo.env ' +
       process.argv[0] + ' test/signal.js'
     exec(command, {
       cwd: root,
@@ -162,7 +162,7 @@ describe('defaultenv', function () {
   })
   it('mimics code from spawned process', function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js test/foo.env ' +
+      'lib/index.js --no-dotenv test/foo.env ' +
       process.argv[0] + " -e 'process.exit(1)'"
     exec(command, {
       cwd: root,
@@ -173,7 +173,7 @@ describe('defaultenv', function () {
     })
   })
   it("outputs export script with -p option", function (done) {
-    var command = process.argv[0] + ' lib/index.js -p test/foo.env test/bar.js'
+    var command = process.argv[0] + ' lib/index.js --no-dotenv -p test/foo.env test/bar.js'
     exec(command, {
       cwd: root,
       env: {FOO: 'bar'},
@@ -182,9 +182,9 @@ describe('defaultenv', function () {
       done()
     })
   })
-  it("loads .env when --dotenv option is given", function (done) {
+  it("loads .env when --no-dotenv option is not given", function (done) {
     var command = process.argv[0] + ' ' +
-      'lib/index.js --dotenv test/foo.env ' +
+      'lib/index.js test/foo.env ' +
       process.argv[0] + " -p 'process.env.FOO'"
     exec(command, {
       cwd: root,

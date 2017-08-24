@@ -2,8 +2,8 @@
 
 export type Options = {
   force?: boolean,
-  dotenv?: boolean,
   print?: boolean,
+  noDotenv?: boolean,
   noExport?: boolean,
 }
 

@@ -53,6 +53,11 @@ variable defaults.
 
 ## Usage
 
+### `.env` file
+
+If this is present in the root directory of your project, variables will be loaded from it using
+[`dotenv`](https://www.npmjs.com/package/dotenv) unless you provide the `--no-dotenv` option.
+
 ### `dotenv`-style files
 
 `defaultenv` uses [`dotenv`](https://www.npmjs.com/package/dotenv) to parse each file.  Here's an example of what
@@ -155,8 +160,8 @@ Overwrite existing values for environment variables (by default, existing values
 #### `-p`, `--print`
 See [Exporting Values](#exporting-values)
 
-#### `--dotenv`
-also loads variables from a .env file in the root directory of your project (by using `require('dotenv').config()`)
+#### `--no-dotenv`
+Prevents loading variables from a .env file in the root directory of your project
 
 ### Example
 
@@ -190,7 +195,7 @@ foobar
 declare function defaultEnv(files: Array<string>, options: {
   force?: boolean,
   print?: boolean,
-  dotenv?: boolean,
+  noDotenv?: boolean,
   noExport?: boolean,
 })
 ```
@@ -211,8 +216,8 @@ If true, overwrite existing values for environment variables (by default, existi
 #### `print`
 See [Exporting Values](#exporting-values)
 
-#### `dotenv`
-If true, also loads variables from a .env file in the root directory of your project
+#### `noDotenv`
+Unless this is true, also loads variables from a .env file in the root directory of your project
 (by using `require('dotenv').config()`)
 
 ##### `noExport`
