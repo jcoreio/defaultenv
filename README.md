@@ -126,8 +126,6 @@ defaultenv <envfile1> <envfile2> [...more envfiles] -- <command> [...command arg
 
 ### Notes
 
-`defaultenv` uses [lodash.defaults](http://devdocs.io/lodash~4/index#defaults) to apply the default values to
-environment variables.  This means that:
 * if `FOO` appears in more than one of the env files, the leftmost file in your arguments wins
 * if `FOO` is already defined in the environment `defaultenv` gets run with, `defaultenv` won't overwrite it
 * once an environment variable gets set to the empty string, `defaultenv` won't overwrite it
