@@ -7,6 +7,6 @@ export type Options = {
   noExport?: boolean,
 }
 
-declare function defaultEnv(envFiles: Array<string>, options: Options): {[varname: string]: string};
+declare function defaultEnv(envFiles: Array<string>, options?: Options): {[varname: string]: string};
 declare module.exports: typeof defaultEnv;
 
