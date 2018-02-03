@@ -6,15 +6,16 @@ cache:
 notifications:
   email: false
 node_js:
-  - '7'
+  - '8'
   - '6'
   - '4'
 install:
-  - yarn install --ignore-optional
+  - yarn install --ignore-optional --ignore-engines --check-files --frozen-lockfile
 script:
-  - cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js
+  - yarn run prepublishOnly
 after_success:
-  - npm run semantic-release
+  - npm run codecov
+  - npm run travis-deploy-once "npm run semantic-release"
 branches:
   except:
     - /^v\d+\.\d+\.\d+$/
