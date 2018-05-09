@@ -10,7 +10,7 @@ node_js:
   - '6'
   - '4'
 install:
-  - yarn install --ignore-optional --ignore-engines --check-files --frozen-lockfile
+  - yarn install --ignore-engines --check-files --frozen-lockfile
 script:
   - yarn run prepublishOnly
 after_success:
