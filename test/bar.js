@@ -1,3 +1,4 @@
-exports.BAR = 'bar'
-exports.FOOBAR = String(process.env.FOO) + exports.BAR
-
+module.exports = function (env) {
+  env.setDefaults({BAR: 'bar'})
+  env.setDefaults({FOOBAR: String(env.get('FOO')) + env.get('BAR')})
+}

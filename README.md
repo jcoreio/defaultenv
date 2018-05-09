@@ -72,17 +72,22 @@ DYNAMO_ENDPOINT="http://localhost:8000"
 
 ### `.js` files
 
-You may use a node `.js` script that exports an object where all property values are strings.  This is especially useful
-if you need to dynamically create default values for environment variables with arbitrary code.
-You are welcome to refer to `process.env` in the script; default values from prior files will already be applied.
+You may use a node `.js` script that exports an object where all property values are strings, or a function that will be
+called with a small API.  This is especially useful if you need to dynamically create default values for environment 
+variables with arbitrary code.  If you need to refer to existing environment variables or defaults applied from prior files,
+you are encouraged to use the function form.
 
 ```js
 var path = require('path')
-exports.BUILD_DIR = path.resolve(__dirname, '..', 'build')
-exports.REDIS_HOST = 'localhost'
-exports.REDIS_PORT = '6379'
-if (process.env.TARGET) {
-  exports.BUILD_DIR = path.resolve(exports.BUILD_DIR, process.env.TARGET)
+module.exports = function(env) {
+  env.setDefaults({
+    BUILD_DIR: path.resolve(__dirname, '..', 'build'),
+    REDIS_HOST: 'localhost',
+    REDIS_PORT: '6379',
+  })
+  if (env.get('TARGET')) {
+    env.setDefault('BUILD_DIR', path.resolve(exports.BUILD_DIR, process.env.TARGET))
+  }
 }
 ```
 (or)
@@ -92,10 +97,25 @@ module.exports = {
   REDIS_HOST: 'localhost',
   REDIS_PORT: '6379',
 }
+// referring to process.env is discouraged because it will work differently when defaultenv
+// is run with the --noExport option.
 if (process.env.TARGET) {
   module.exports.BUILD_DIR = path.resolve(module.exports.BUILD_DIR, process.env.TARGET)
 }
 ```
+
+#### JS Env File API
+
+If your `.js` file exports a function, it will be called with an object with the following methods:
+
+##### `get(key: string): ?string`
+Gets the value of an environment variable.
+
+##### `setDefault(key: string, value: string)`
+Sets the value of an environment variable if it is not already set.
+
+##### `setDefaults(defaults: {[key: string]: string})`
+Calls `setDefault` for each `key`-`value` pair in `defaults`.
 
 ### `.json` files
 

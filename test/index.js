@@ -69,7 +69,7 @@ describe('defaultenv', function () {
       done()
     })
   })
-  it('requires js env files to export an object', function (done) {
+  it('requires js env files to export an object or function', function (done) {
     var command = process.argv[0] + ' ' +
       'lib/index.js --no-dotenv test/notObject.js ' +
       process.argv[0] + " -p 'process.env.FOO'"

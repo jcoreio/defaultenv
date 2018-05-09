@@ -7,6 +7,12 @@ export type Options = {
   noExport?: boolean,
 }
 
+export type EnvFileAPI = {
+  get: (key: string) => ?string,
+  setDefault: (key: string, value: string) => void,
+  setDefaults: (defaults: {[key: string]: string}) => void,
+}
+
 declare function defaultEnv(envFiles: Array<string>, options?: Options): {[varname: string]: string};
 declare module.exports: typeof defaultEnv;
 
