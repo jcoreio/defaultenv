@@ -7,7 +7,7 @@
     ":renovatePrefix",
     ":updateNotScheduled",
     ":preserveSemverRanges",
-    ":semanticPrefixFix",
+    "smart-semantic-commits",
     ":automergeDisabled",
     "group:monorepos"
   ],
