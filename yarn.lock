@@ -124,6 +124,14 @@
   dependencies:
     find-up "^2.1.0"
 
+"@jcoreio/kexec@^4.0.0":
+  version "4.0.0"
+  resolved "https://registry.yarnpkg.com/@jcoreio/kexec/-/kexec-4.0.0.tgz#4b27d3132307c072d2da4dfdc2c4fd5e3a7321d3"
+  integrity sha512-qYbEi+Z71oviBsl6zR2ddh4W5P8nCvRg8AEGXgoEYJKB74GgsPsiCmrT0eLv98wHVLHEjw1sEhYRa/fJycI1Hg==
+  dependencies:
+    bindings "^1.5.0"
+    node-addon-api "^2.0.0"
+
 "@jedwards1211/commitlint-config@^1.0.0":
   version "1.0.0"
   resolved "https://registry.npmjs.org/@jedwards1211/commitlint-config/-/commitlint-config-1.0.0.tgz#a3e56e5cd5c78a923c7c49f08fbbdc7b02756fd7"
@@ -966,6 +974,13 @@ before-after-hook@^1.1.0:
 binary-extensions@^1.0.0:
   version "1.11.0"
   resolved "https://registry.npmjs.org/binary-extensions/-/binary-extensions-1.11.0.tgz#46aa1751fb6a2f93ee5e689bb1087d4b14c6c205"
+
+bindings@^1.5.0:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/bindings/-/bindings-1.5.0.tgz#10353c9e945334bc0511a6d90b38fbc7c9c504df"
+  integrity sha512-p2q/t/mhvuOj/UeLlV6566GD/guowlr0hHxClI0W9m7MWYkL1F0hLo+0Aexs9HSPCtR1SXQ0TD3MMKrXZajbiQ==
+  dependencies:
+    file-uri-to-path "1.0.0"
 
 bluebird@^3.4.1, bluebird@^3.5.1:
   version "3.5.1"
@@ -2081,6 +2096,11 @@ file-stat@^0.2.3:
     lazy-cache "^2.0.1"
     through2 "^2.0.1"
 
+file-uri-to-path@1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/file-uri-to-path/-/file-uri-to-path-1.0.0.tgz#553a7b8446ff6f684359c445f1e37a05dacc33dd"
+  integrity sha512-0Zt+s3L7Vf1biwWZ29aARiVYLx7iMGnEUl9x33fbB/j3jR81u/O2LbqK+Bm1CDSNDKVtJ/YjwY7TUd5SkeLQLw==
+
 fill-range@^4.0.0:
   version "4.0.0"
   resolved "https://registry.npmjs.org/fill-range/-/fill-range-4.0.0.tgz#d544811d428f98eb06a63dc402d2403c328c38f7"
@@ -3124,12 +3144,6 @@ jsprim@^1.2.2:
     json-schema "0.2.3"
     verror "1.10.0"
 
-kexec@^3.0.0:
-  version "3.0.0"
-  resolved "https://registry.npmjs.org/kexec/-/kexec-3.0.0.tgz#0ef4aa9d3caa26180c11a10075ac1fce2681e36c"
-  dependencies:
-    nan "^2.4.0"
-
 keypress@^0.2.1:
   version "0.2.1"
   resolved "https://registry.npmjs.org/keypress/-/keypress-0.2.1.tgz#1e80454250018dbad4c3fe94497d6e67b6269c77"
@@ -3556,7 +3570,7 @@ mute-stream@0.0.5:
   version "0.0.5"
   resolved "https://registry.npmjs.org/mute-stream/-/mute-stream-0.0.5.tgz#8fbfabb0a98a253d3184331f9e8deb7372fac6c0"
 
-nan@^2.4.0, nan@^2.9.2:
+nan@^2.9.2:
   version "2.10.0"
   resolved "https://registry.npmjs.org/nan/-/nan-2.10.0.tgz#96d0cd610ebd58d4b4de9cc0c6828cda99c7548f"
 
@@ -3600,6 +3614,11 @@ next-tick@1:
 nice-try@^1.0.4:
   version "1.0.4"
   resolved "https://registry.npmjs.org/nice-try/-/nice-try-1.0.4.tgz#d93962f6c52f2c1558c0fbda6d512819f1efe1c4"
+
+node-addon-api@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/node-addon-api/-/node-addon-api-2.0.0.tgz#f9afb8d777a91525244b01775ea0ddbe1125483b"
+  integrity sha512-ASCL5U13as7HhOExbT6OlWJJUV/lLzL2voOSP1UVehpRD8FbSrSDjfScK/KwAvVTI5AS6r4VwbOMlIqtvRidnA==
 
 node-emoji@^1.4.1:
   version "1.8.1"
