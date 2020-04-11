@@ -10,6 +10,12 @@ jobs:
           name: Restore Yarn Package Cache
           keys:
             - yarn-packages-{{ checksum "yarn.lock" }}
+      - run:
+        name: Set up yarn registry and NPM token
+        command: |
+          yarn config set registry "https://registry.npmjs.org/"
+          echo "//registry.npmjs.org/:_authToken=$NPM_TOKEN" > .npmrc
+          echo "registry=https://registry.npmjs.org/" >> .npmrc
 
       - run:
           name: Install Dependencies
