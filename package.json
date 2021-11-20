@@ -6,6 +6,9 @@
     "defaultenv": "lib/index.js"
   },
   "main": "lib/index.js",
+  "files": [
+    "lib"
+  ],
   "scripts": {
     "lint": "eslint lib test --cache",
     "lint:fix": "eslint --fix lib test --cache",
@@ -19,7 +22,7 @@
     "commitmsg": "commitlint -e $GIT_PARAMS",
     "precommit": "npm run lint && flow",
     "prepush": "npm test",
-    "prepublishOnly": "npm run lint && flow && npm test",
+    "prepublishOnly": "npm run lint && flow && tsc && npm test",
     "open:coverage": "open coverage/lcov-report/index.html",
     "semantic-release": "semantic-release",
     "travis-deploy-once": "travis-deploy-once"
@@ -49,29 +52,32 @@
   },
   "homepage": "https://github.com/jcoreio/defaultenv#readme",
   "devDependencies": {
-    "@commitlint/cli": "^6.0.2",
-    "@commitlint/config-conventional": "^6.0.2",
-    "@jedwards1211/commitlint-config": "^1.0.0",
-    "@jedwards1211/eslint-config-es5": "^1.0.0",
-    "@jedwards1211/eslint-config-flow": "^1.0.0",
-    "chai": "^4.1.2",
-    "codecov": "^3.0.0",
-    "copy": "^0.3.0",
-    "eslint": "^3.18.0",
-    "eslint-plugin-flowtype": "^2.30.4",
-    "eslint-watch": "^3.0.1",
-    "flow-bin": "^0.71.0",
-    "flow-watch": "^1.1.1",
-    "husky": "^0.14.3",
+    "@commitlint/cli": "^15.0.0",
+    "@commitlint/config-conventional": "^15.0.0",
+    "@jedwards1211/commitlint-config": "^1.0.2",
+    "@jedwards1211/eslint-config-es5": "^1.0.1",
+    "@jedwards1211/eslint-config-flow": "^3.0.1",
+    "chai": "^4.3.4",
+    "codecov": "^3.8.3",
+    "copy": "^0.3.2",
+    "eslint": "^8.2.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-flowtype": "^8.0.3",
+    "eslint-watch": "^8.0.0",
+    "flow-bin": "^0.165.1",
+    "flow-watch": "^2.0.0",
+    "husky": "^7.0.4",
     "istanbul": "^0.4.5",
-    "mocha": "^5.0.0",
-    "nyc": "^11.4.1",
-    "rimraf": "^2.6.1",
-    "semantic-release": "^15.4.0",
-    "travis-deploy-once": "^4.3.1"
+    "mocha": "^9.1.3",
+    "nyc": "^15.1.0",
+    "prettier": "^2.4.1",
+    "rimraf": "^3.0.2",
+    "semantic-release": "^18.0.0",
+    "travis-deploy-once": "^5.0.11",
+    "typescript": "^4.5.2"
   },
   "dependencies": {
-    "dotenv": "^4.0.0"
+    "dotenv": "^10.0.0"
   },
   "optionalDependencies": {
     "@jcoreio/kexec": "^4.0.0"
