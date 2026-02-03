@@ -3,12 +3,9 @@
   "version": "0.0.0-development",
   "description": "set missing environment variables to defaults then run a command",
   "bin": {
-    "defaultenv": "lib/index.js"
+    "defaultenv": "dist/cli.js"
   },
-  "main": "lib/index.js",
-  "files": [
-    "lib"
-  ],
+  "main": "dist/index.js",
   "scripts": {
     "lint": "eslint lib test --cache",
     "lint:fix": "eslint --fix lib test --cache",
@@ -35,7 +32,7 @@
   },
   "nyc": {
     "include": [
-      "lib/**/*.js"
+      "src/**/*.js"
     ]
   },
   "repository": {
