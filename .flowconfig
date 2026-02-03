@@ -1,5 +1,8 @@
 [ignore]
 .*/node_modules/.*/tests?/.*\.json
+<PROJECT_ROOT>/dist/.*
+.*/malformed_package_json/.*
+.*/node_modules/.*/hermes-.*/.*
 
 [include]
 ./src
@@ -9,4 +12,3 @@
 
 [options]
 module.system=node
-
