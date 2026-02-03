@@ -52,7 +52,7 @@ function defaultEnv(envFiles, options) {
   for (var i = 0; i < envFiles.length; i++) {
     file = envFiles[i]
     var defaultValues
-    if (/\.js(on)?$/.test(file)) {
+    if (/\.(js|cjs|mjs|ts|cts|mts|json)$/.test(file)) {
       defaultValues = require(path.resolve(process.cwd(), file))
       if (defaultValues instanceof Function) {
         defaultValues({
